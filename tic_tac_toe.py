@@ -1,6 +1,5 @@
-game = []
-
 def build_board():
+	game = []
 
 	game.append(['A','B','C'])
 	for row in range(1,4):
@@ -10,11 +9,10 @@ def build_board():
 			row.append(column)
 		game.append(row)
 	return game
-game = build_board()
 
 def format_board(board):
 	count = 0
-	for row in game:
+	for row in board:
 		if row == 0:
 			print("|".join(row))
 		else:
@@ -61,22 +59,29 @@ def make_move(board,position,player):
 	if board[row][column] == '-':
 		board[row][column] = player
 	else:
-		return 'Invalid Move'
+		print()
+		print('Invalid Move, try again')
+		print()
 
 	return board
 
 
-def play_game(board):
+def play_game(board=None):
+
+	if not board:
+		board = build_board()
+
 	column_to_grid = {'A':0, 'B': 1, "C":2}
 	player = input("Choose a player: X or Y ").upper()
 	print()
-	print("You are player {}".format(player))
+	print("Player {}'s move".format(player))
 	print()
 	format_board(board)
 	print()
 	row = input("Choose row: 1, 2, or 3 ").upper()
 	print()
 	column = input("Choose column: A, B, or C ").upper()
+	print()
 	if column in column_to_grid:
 		position = str(row), str(column_to_grid[column])
 	else:
@@ -85,12 +90,18 @@ def play_game(board):
 	board = make_move(board,position,player)
 	if is_winner(board,position,player):
 		print("{} is the winner!!".format(player))
-		return 
+		print()
+		play_again = input("Would you like to play again? Y or N ")
+		print()
+		if play_again.upper() == 'Y':
+			play_game()
+		else:
+			return
 	else:
 		format_board(board)
 		play_game(board)
 
-play_game(game)
+play_game()
 
 
 
