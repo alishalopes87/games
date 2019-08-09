@@ -12,6 +12,7 @@ def build_board():
 	return game
 game = build_board()
 
+
 def format_board(board):
 	count = 0
 	for row in game:
