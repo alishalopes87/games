@@ -26,7 +26,7 @@ def is_winner(board,position,player):
 	column = int(position[1])
 
 	count = 0
-	#check rows
+	#check rows for three in a row
 	for i in range(len(board[row])):
 		if board[row][i] == player:
 			count += 1
@@ -34,7 +34,7 @@ def is_winner(board,position,player):
 			return True
 
 	count = 0
-	#check columns
+	#check columns for three in a row
 	for i in range(len(board)):
 		if board[i][column] == player:
 			count += 1
@@ -42,7 +42,7 @@ def is_winner(board,position,player):
 			return True
 
 
-	#check diagonals
+	#check diagonals for three in a row
 	if board[1][0] == player and board[1][0] == board[2][1] == board[3][2]: 
 		return True
 	elif board[1][2] == player and board[1][2] == board[2][1] == board[3][0]:
