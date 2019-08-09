@@ -24,15 +24,33 @@ def format_board(board):
 def is_winner(board,position,player):
 	row = int(position[0])
 	column = int(position[1])
-	print(row, column)
 
 	count = 0
-	for i in range(len(board)):
-		for j in range(len(board[row])):
-			if board[i][j] == player:
-				count += 1
+	#check rows for three in a row
+	for i in range(len(board[row])):
+		if board[row][i] == player:
+			count += 1
 		if count >= 3:
 			return True
+
+	count = 0
+	#check columns for three in a row
+	for i in range(len(board)):
+		if board[i][column] == player:
+			count += 1
+		if count >= 3:
+			return True
+
+
+	#check diagonals for three in a row
+	if board[1][0] == player and board[1][0] == board[2][1] == board[3][2]: 
+		return True
+	elif board[1][2] == player and board[1][2] == board[2][1] == board[3][0]:
+		return True
+
+
+
+
 
 
 def make_move(board,position,player):
@@ -51,9 +69,13 @@ def make_move(board,position,player):
 def play_game(board):
 	column_to_grid = {'A':0, 'B': 1, "C":2}
 	player = input("Choose a player: X or Y ").upper()
-	print(player)
+	print()
+	print("You are player {}".format(player))
+	print()
 	format_board(board)
+	print()
 	row = input("Choose row: 1, 2, or 3 ").upper()
+	print()
 	column = input("Choose column: A, B, or C ").upper()
 	if column in column_to_grid:
 		position = str(row), str(column_to_grid[column])
